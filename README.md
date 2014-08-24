@@ -4,14 +4,14 @@ Getting and Cleaning Data
 This repository is created as a assignment to the Data Science specialization courses. It is from the course Getting and Cleaning Data. the package contains a **R Script** to perform necessary operations on the data, a README file to describe the operations & a CODEBOOK file to define the variables in the data.
 
 The task of the assignment is to read a data from file, extract some specific data, label the data and finally generate some computed data. This README file describes:
-- The Initial Data format
-- The Tasks
+- The initial data format
+- The tasks
 - The operations performed for each task
-- The final Output Form
+- The final output form
 
 Initial Data Format
 -------------------
-The Script takes input a single parameter containing path to the data directory. It assumes that the data is stored in this directory hierarchy.
+The script takes input a single parameter containing path to the data directory. It assumes that the data is stored in this directory hierarchy.
 ```
 data/
   +-- test/
@@ -49,16 +49,16 @@ data/
   |  required_features.txt
 ```
 ### Data Dimensions
-| File Name           | Description                               |nrows|ncols|
-|:--------------------|:-----------------------------------------:|----:|----:|
-|X_train.txt          |Contains training data set for all features| 7352|  561|
-|X_test.txt           |Contains training data set for all features| 2947|  561|
-|y_train.txt          |Contains activity id for all training set  | 7352|    1|
-|y_test.txt           |Contains activity id for all test set      | 2947|    1|
-|subject_train.txt    |Contains subject id for all training set   | 7352|    1|
-|subject_test.txt     |Contains subject id for all test set       | 2947|    1|
-|activity_labels.txt  |contains activity id along with name text  |    6|    2|
-|features.txt         |Contains list of all features              |  561|    2|
+| File Name           | Description                               |# of Rows |# of Columns|
+|:--------------------|:-----------------------------------------:|---------:|-----------:|
+|X_train.txt          |Contains training data set for all features|      7352|         561|
+|X_test.txt           |Contains training data set for all features|      2947|         561|
+|y_train.txt          |Contains activity id for all training set  |      7352|           1|
+|y_test.txt           |Contains activity id for all test set      |      2947|           1|
+|subject_train.txt    |Contains subject id for all training set   |      7352|           1|
+|subject_test.txt     |Contains subject id for all test set       |      2947|           1|
+|activity_labels.txt  |contains activity id along with name text  |         6|           2|
+|features.txt         |Contains list of all features              |       561|           2|
 |required_features.txt|Contains short list of features with only mean() & std() values|79|2|
 
 
@@ -79,50 +79,84 @@ Loading and merging data.
 *function get_merged_data(file)*
 ***
 * Parameters:
-  * file = location to the path of data source directory
+  * file = Location to the path of data source directory
 * Tasks:
-  * loads data from X_train.txt
-  * loads data from X_text.txt
-  * merges data by rbind
+  * Loads data from X_train.txt
+  * Loads data from X_text.txt
+  * Merges data by rbind
 * Output:
-  * merged data-frame with dimension 10299x561 ( 10299 rows and 561 columns )
+  * Merged data-frame with dimension 10299x561 ( 10299 rows and 561 columns )
 
 ### Step 2
 
 Extract Specific columns.
 
-we only need those columns which contains mean() or std() of all other measurements. These columns are **hand-picked** and stored in a new file called *required_features.txt*. I have selected 79 columns to be extracted. the required_features.txt file is also uploaded for convenience.
+We only need those columns which contains mean() or std() of all other measurements. These columns are **hand-picked** and stored in a new file called *required_features.txt*. I have selected 79 columns to be extracted. The required_features.txt file is also uploaded for convenience.
 
 *function extract_columns(file, data)*
 ***
 * Parameters:
-  * file = location to the path of data source directory
-  * data = reference to merged data-frame object
+  * file = Location to the path of data source directory
+  * data = Reference to merged data-frame object
 * Tasks:
-  * loads required features list from required_features.txt file
-  * extracts only those columns specified in the file
+  * Loads required features list from required_features.txt file
+  * Extracts only those columns specified in the file
 * Output:
-  * data-frame with only required columns in it, dimension = 10299x79 ( 10299 rows, 79 columns)
+  * Data-frame with only required columns in it, dimension = 10299x79 ( 10299 rows, 79 columns)
 
 ### Step 3
 
 Load activity and subject
 
-from y_train.txt and y_test.txt activities were loaded. They were merged and attached to the main data set. similarly from subject_test.txt and subject_train.txt subject data were loaded. They were also merged and attached to the main data set.
+From y_train.txt and y_test.txt activities were loaded. They were merged and attached to the main data set. similarly from subject_test.txt and subject_train.txt subject data were loaded. They were also merged and attached to the main data set.
 
 *function merge_subject_activity(file, data)*
 ***
 * Parameters:
-  * file = location to the path of data source directory
-  * data = reference to extracted data-frame object
+  * file = Location to the path of data source directory
+  * data = Reference to extracted data-frame object
 * Tasks:
-  * loads activities from y_train.txt and y_test.txt
-  * loads subject from subject_train.txt and subject_test.txt
+  * Loads activities from y_train.txt and y_test.txt
+  * Loads subject from subject_train.txt and subject_test.txt
   * y_train and y_test are merged by **rbind**
-  * subject_train and subject_test are merged by **rbind**
+  * Subject_train and subject_test are merged by **rbind**
   * y and subject are attached with the extracted data by **cbind**
 * Output:
-  * data-frame with activity and subject columns in it, dimension = 10299x81 ( 10299 rows, 81 columns)
+  * Data-frame with activity and subject columns in it, dimension = 10299x81 ( 10299 rows, 81 columns)
 
+### Step 4
 
+Labelling the data
 
+From activity_labels.txt the activities names were loaded. From required_features.txt selecterd feature names were loaded. Each variable were assigned a name loaded from the required_features.txt. After that activities were converted to **factor** variables and labelled with activity name texts.
+
+*function label_data(file, data)*
+***
+* Parameters:
+  * file = Location to the path of data source directory
+  * data = Reference to modified data-frame object
+* Tasks:
+  * Loads selected feature names from required_features.txt file
+  * Set feature names to the variables using **colnames** method
+  * Loads activity name texts from activity_labels.txt
+  * Converts *activity* to factor variable and assigned appropriate labels
+  * *subject* column were also converted to factor variable
+* Output:
+  * data-frame with proper labelling, dimension = 10299x81 ( 10299 rows, 81 columns)
+
+### Step 5
+
+Finding the means
+
+Current data set has dimension 10299x81. The first two columns are factor variables of *activity* and *subject*. There are 30 subjects and 6 activities. Data set was split into a list of 180 individual sets using `split()`. then mean() function was applied to each column of each element of the list to calculate means of each variable for each subject for each activity.
+
+*function find_mean(file, data)*
+***
+* Parameters:
+  * file = Location to the path of data source directory
+  * data = Reference to extracted data-frame object
+* Tasks:
+  * Splits data-frame into a list of 180 elements where each element contains the subset of the total data of a particular activity of a particular subject
+  * Calculates average of each columns on each elements of the list usinf
+* Output:
+  * Data-frame with desired output, dimension = 79X180 ( 79 rows, 180 columns)

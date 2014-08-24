@@ -1,7 +1,7 @@
 Getting and Cleaning Data
 =========================
 
-This repository is created as a assignment to the Data Science specialization courses. It is from the course Getting and Cleaning Data. the package contains a *R Script* to perform necessary operations on the data, a README file to describe the operations & a CODEBOOK file to define the variables in the data.
+This repository is created as a assignment to the Data Science specialization courses. It is from the course Getting and Cleaning Data. the package contains a **R Script** to perform necessary operations on the data, a README file to describe the operations & a CODEBOOK file to define the variables in the data.
 
 The task of the assignment is to read a data from file, extract some specific data, label the data and finally generate some computed data. This README file describes:
 - The Initial Data format
@@ -51,13 +51,37 @@ data/
 ### Data Dimensions
 | File Name           | Description                               |nrows|ncols|
 |:--------------------|:-----------------------------------------:|----:|----:|
-|X_train.txt          |Contains training data set for all features|7352:| 561:|
-|X_test.txt           |Contains training data set for all features|2947:| 561:|
-|y_train.txt          |Contains activity id for all training set  |7352:|   1:|
-|y_test.txt           |Contains activity id for all test set      |2947:|   1:|
-|subject_train.txt    |Contains subject id for all training set   |7352:|   1:|
-|subject_test.txt     |Contains subject id for all test set       |2947:|   1:|
-|activity_labels.txt  |contains activity id along with name text  |   6:|   2:|
-|features.txt         |Contains list of all features              | 561:|   2:|
-|required_features.txt|Contains short list of features with only mean() & std() values|79:|2:|
+|X_train.txt          |Contains training data set for all features| 7352|  561|
+|X_test.txt           |Contains training data set for all features| 2947|  561|
+|y_train.txt          |Contains activity id for all training set  | 7352|    1|
+|y_test.txt           |Contains activity id for all test set      | 2947|    1|
+|subject_train.txt    |Contains subject id for all training set   | 7352|    1|
+|subject_test.txt     |Contains subject id for all test set       | 2947|    1|
+|activity_labels.txt  |contains activity id along with name text  |    6|    2|
+|features.txt         |Contains list of all features              |  561|    2|
+|required_features.txt|Contains short list of features with only mean() & std() values|79|2|
 
+
+Tasks
+-----
++ Step 1: Load training data & test data and merge them
++ Step 2: Extract only those columns which contains measurement on the mean() od std() for each measurement
++ Step 3: Use **Activity** name text instead of id
++ Step 4: Label the data set with appropriate name for each variable
++ Step 5: Create a Second data set with mean() for each variable for each activity for each subject
+
+Operations
+----------
+
+### Step 1
+
+function get_merged_data(file)
+	* Parameters:
+	..* file = location to the path of data source directory
+	* Tasks:
+	..* loads data from X_train.txt
+	..* loads data from X_text.txt
+	..* merges data by rbind
+	* Output:
+	..* merged data-frame with dimension 10299x561 ( 10299 rows and 561 columns )
+	

@@ -76,16 +76,16 @@ Operations
 ### Step 1
 Loading and merging data.
 
-function get_merged_data(file)
----
+*function get_merged_data(file)*
+***
 * Parameters:
-..* file = location to the path of data source directory
+  * file = location to the path of data source directory
 * Tasks:
-..* loads data from X_train.txt
-..* loads data from X_text.txt
-..* merges data by rbind
+  * loads data from X_train.txt
+  * loads data from X_text.txt
+  * merges data by rbind
 * Output:
-..* merged data-frame with dimension 10299x561 ( 10299 rows and 561 columns )
+  * merged data-frame with dimension 10299x561 ( 10299 rows and 561 columns )
 
 ### Step 2
 
@@ -93,16 +93,16 @@ Extract Specific columns.
 
 we only need those columns which contains mean() or std() of all other measurements. These columns are **hand-picked** and stored in a new file called *required_features.txt*. I have selected 79 columns to be extracted. the required_features.txt file is also uploaded for convenience.
 
-function extract_columns(file, data)
----
+*function extract_columns(file, data)*
+***
 * Parameters:
-..* file = location to the path of data source directory
-..* data = reference to merged data-frame object
+  * file = location to the path of data source directory
+  * data = reference to merged data-frame object
 * Tasks:
-..* loads required features list from required_features.txt file
-..* extracts only those columns specified in the file
+  * loads required features list from required_features.txt file
+  * extracts only those columns specified in the file
 * Output:
-..* data-frame with only required columns in it, dimension = 10299x79 ( 10299 rows, 79 columns)
+  * data-frame with only required columns in it, dimension = 10299x79 ( 10299 rows, 79 columns)
 
 ### Step 3
 
@@ -110,19 +110,19 @@ Load activity and subject
 
 from y_train.txt and y_test.txt activities were loaded. They were merged and attached to the main data set. similarly from subject_test.txt and subject_train.txt subject data were loaded. They were also merged and attached to the main data set.
 
-function merge_subject_activity(file, data)
----
+*function merge_subject_activity(file, data)*
+***
 * Parameters:
-..* file = location to the path of data source directory
-..* data = reference to extracted data-frame object
+  * file = location to the path of data source directory
+  * data = reference to extracted data-frame object
 * Tasks:
-..* loads activities from y_train.txt and y_test.txt
-..* loads subject from subject_train.txt and subject_test.txt
-..* y_train and y_test are merged by **rbind**
-..* subject_train and subject_test are merged by **rbind**
-..* y and subject are attached with the extracted data by **cbind**
+  * loads activities from y_train.txt and y_test.txt
+  * loads subject from subject_train.txt and subject_test.txt
+  * y_train and y_test are merged by **rbind**
+  * subject_train and subject_test are merged by **rbind**
+  * y and subject are attached with the extracted data by **cbind**
 * Output:
-..* data-frame with activity and subject columns in it, dimension = 10299x81 ( 10299 rows, 81 columns)
+  * data-frame with activity and subject columns in it, dimension = 10299x81 ( 10299 rows, 81 columns)
 
 
 

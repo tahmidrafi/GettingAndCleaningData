@@ -102,7 +102,7 @@ We only need those columns which contains `mean()` or `std()` of all other measu
   * Loads required features list from *required_features.txt* file
   * Extracts only those columns specified in the file
 * Output:
-  * Data-frame with only required columns in it, dimension = 10299x79 ( 10299 rows, 79 columns)
+  * Data-frame with only required columns in it, dimension = `10299x79` ( 10299 rows, 79 columns)
 
 ### Step 3
 
@@ -122,7 +122,7 @@ From *y_train.txt* and *y_test.txt* *activities* were loaded. They were merged a
   * *subject_train* and *subject_test* are merged by `rbind())`
   * *activity* and *subject* are attached with the extracted data by `cbind()`
 * Output:
-  * Data-frame with activity and subject columns in it, dimension = 10299x81 ( 10299 rows, 81 columns)
+  * Data-frame with activity and subject columns in it, dimension = `10299x81` ( 10299 rows, 81 columns)
 
 ### Step 4
 
@@ -142,7 +142,7 @@ From *activity_labels.txt* the *activities* names were loaded. From *required_fe
   * Converts *activity* to factor variable and assigned appropriate labels with `factor()`
   * *subject* column were also converted to *factor* variable
 * Output:
-  * data-frame with proper labelling, dimension = 10299x81 ( 10299 rows, 81 columns)
+  * data-frame with proper labelling, dimension = `10299x81` ( 10299 rows, 81 columns)
 
 ### Step 5
 
@@ -159,7 +159,7 @@ Current data set has dimension 10299x81. The first two columns are factor variab
   * Splits data-frame into a list of 180 elements where each element contains the subset of the total data of a particular activity of a particular subject
   * Calculates average of each columns on each elements of the list using `sapply()` on `colMeans()`
 * Output:
-  * Data-frame with desired output, dimension = 79X180 ( 79 rows, 180 columns)
+  * Data-frame with desired output, dimension = `79X180` ( 79 rows, 180 columns)
 
 Final Output
 ------------

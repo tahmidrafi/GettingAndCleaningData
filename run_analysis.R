@@ -107,7 +107,7 @@ find_mean <- function(file, data) {
 }
 
 
-ff <- function() {
+get_tidy_data <- function(file = "data/") {
     file = "getdata-projectfiles-UCI HAR Dataset/"
     
     message("Started Reading Data...\n")

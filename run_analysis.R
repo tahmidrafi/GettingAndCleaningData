@@ -16,11 +16,13 @@ library(dplyr)
 datafile <- "data.zip"
 
 if(!file.exists(datafile)){
-    download.file(url = "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip", 
-                  destfile = datafile, mode = "wb")
+    dataURL <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
+    message("Downloading Data from: ", dataURL)
+    download.file(url = dataURL, destfile = datafile, mode = "wb")
 }
 
 if(!file.exists("UCI HAR Dataset")){
+    message("Unzipping File: ", datafile, " to UCI HAR Dataset/ directory")
     unzip(zipfile = datafile)
 }
 
@@ -35,13 +37,55 @@ feature_name_file <- paste0(base_data_url, "\\features.txt")
 feature_names <- read.table(file = feature_name_file, 
                             sep = " ",
                             colClasses = c("integer", "character"), 
-                            col.names = c("id", "name"))
+                            col.names = c("label", "feature"))
 
 activity_file <- paste0(base_data_url, "\\activity_labels.txt")
 activity_labels <- read.table(file = activity_file, 
                               sep = " ",
                               colClasses = c("integer", "character"), 
-                              col.names = c("id", "name"))
+                              col.names = c("label", "activity"))
+
+message("Featurelist & Activity labels loaded")
+
+required_features_index <- grep(".*(mean|std).*", feature_names[,2])
+required_features <- feature_names[required_features_index, ]
+
+#+------------------------------------+
+#| Load & Merge: training & test data |
+#+------------------------------------+
+
+# Training Data
+train_path <- paste0(base_data_url, "\\train")
+
+X_train_file = paste0(train_path, "\\X_train.txt")
+Y_train_file = paste0(train_path, "\\Y_train.txt")
+subject_train_file = paste0(train_path, "\\subject_train.txt")
+
+message("Reading X_train from: ", X_train_file)
+#X_train <- read.table(X_train_file)
+X_train <- tbl_df(X_train)
+colnames(X_train) <- feature_names[,2]
+
+message("Reading Y_train from: ", Y_train_file)
+#Y_train <- read.table(Y_train_file)
+#Y_train <- tbl_df(Y_train)
+colnames(Y_train) <- "activity"
+
+message("Reading subject_train from: ", subject_train_file)
+#subject_train <- read.table(subject_train_file)
+#subject_train <- tbl_df(subject_train)
+colnames(subject_train) <- "activity"
+
+#data_train <- 
+
+# Test Data
+test_path <- paste0(base_data_url, "\\test")
+
+X_test_file = paste0(test_path, "\\X_test.txt")
+Y_test_file = paste0(test_path, "\\Y_test.txt")
+subject_test_file = paste0(test_path, "\\subject_test.txt")
+
+# Load
 
 get_feature_names <- function(file, sep = " ", colClasses = c("integer", "character")) {
     features <- read.table(file = file, sep = sep, colClasses = colClasses)

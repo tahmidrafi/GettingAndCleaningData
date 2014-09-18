@@ -1,3 +1,48 @@
+#+----------------------------------+
+#| Install & Load required packages |
+#+----------------------------------+
+
+# dplyr
+if(!is.element("dplyr", installed.packages()[,1])){
+    install.packages("dplyr")
+}
+
+library(dplyr)
+
+#+------------------------+
+#| Download & unpack Data |
+#+------------------------+
+
+datafile <- "data.zip"
+
+if(!file.exists(datafile)){
+    download.file(url = "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip", 
+                  destfile = datafile, mode = "wb")
+}
+
+if(!file.exists("UCI HAR Dataset")){
+    unzip(zipfile = datafile)
+}
+
+
+#+--------------------------------+
+#| Get Feature Names & Activities |
+#+--------------------------------+
+
+base_data_url = "UCI HAR Dataset"
+
+feature_name_file <- paste0(base_data_url, "\\features.txt")
+feature_names <- read.table(file = feature_name_file, 
+                            sep = " ",
+                            colClasses = c("integer", "character"), 
+                            col.names = c("id", "name"))
+
+activity_file <- paste0(base_data_url, "\\activity_labels.txt")
+activity_labels <- read.table(file = activity_file, 
+                              sep = " ",
+                              colClasses = c("integer", "character"), 
+                              col.names = c("id", "name"))
+
 get_feature_names <- function(file, sep = " ", colClasses = c("integer", "character")) {
     features <- read.table(file = file, sep = sep, colClasses = colClasses)
     feature_names <- features[,2]
